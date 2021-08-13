@@ -108,10 +108,12 @@ func generateConfigFiles(configPath string) {
 					Email:   "duckSSH@domain.com",
 					DuckDNS: "duckSSH.duckdns.org",
 					IP:      "127.0.0.1",
+					Status:  1,
 				}, {
 					Email:   "duckSSH2@domain.com",
 					DuckDNS: "duckSSH2.duckdns.org",
 					IP:      "127.0.0.2",
+					Status:  1,
 				},
 			},
 		}
