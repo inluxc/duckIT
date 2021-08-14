@@ -1,4 +1,4 @@
-module duckssh
+module github.com/inluxc/duckssh
 
 go 1.16
 
