@@ -19,8 +19,9 @@ var (
 )
 
 type Config struct {
-	Update int    `json:"update"`
-	List   []List `json:"list"`
+	Update   int    `json:"update"`
+	LogLevel int    `json:"log_level"` // 1-Trace, 2-Debug, 3-Info, 4-Warning, 5-Error, 6-Fatal 7-Panic | number upwards
+	List     []List `json:"list"`
 }
 type List struct {
 	Email      string    `json:"email"`
@@ -53,6 +54,9 @@ func setLogger() {
 	var err error
 	// create the logger
 	logger = logrus.New()
+
+	logger.SetLevel(logrus.WarnLevel)
+
 	logger.Formatter = &logrus.JSONFormatter{}
 	logger.SetOutput(os.Stdout)
 	logFile, err = os.OpenFile(fmt.Sprint(configPath, "/log/duckSSH.logger"), os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0755)
@@ -157,7 +161,8 @@ func generateConfigFiles() {
 	configFilePath = fmt.Sprint(configPath, "/config.json")
 	if _, err := os.Stat(configFilePath); os.IsNotExist(err) {
 		appConfig := &Config{
-			Update: 5,
+			Update:   5,
+			LogLevel: 4,
 			List: []List{
 				{
 					Email:      "duckSSH@domain.com",
